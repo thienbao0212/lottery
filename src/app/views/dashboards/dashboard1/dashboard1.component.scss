@@ -38,3 +38,47 @@
         box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15), 0 3px 12px 0 rgba(0, 0, 0, 0.15);
     }
 }
+
+.item-filter {
+    
+    .item {
+        color: white;
+        height: 30px;
+        border-radius: 30px;
+        width: 30px;
+        margin-right: 2px;
+        background-color: #45cafc;
+        max-width: 30px;
+        min-width: 30px;
+        padding-left: 9px;
+        padding-top: 3px;
+        padding-right: 5px;
+        font-size: 14px;
+        // border: 1px solid #e0e0e9;
+        &.selected {
+            // border: 1px solid #e0e0e9;
+            background-color: #193f4d;
+        }
+        
+    }
+    .btn-outline-primary {
+        &.selected {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        &.un-selected {
+            color: black;
+            background-color: #fff;
+            border-color: #007bff;
+        }
+    }
+    .md-form .form-control {
+        padding: 0rem 0 0rem 9px;
+    }
+}
+.md-form {
+    .form-control {
+        margin: 0 0 0 0;
+    }
+}

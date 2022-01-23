@@ -19,6 +19,10 @@ import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.co
 // main layout
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 import { DashboardService } from './services/dashboard.service';
+import { Profile1Component } from './views/profile/profile1/profile1.component';
+import { Map1Component } from './views/maps/map1/map1.component';
+import { BasicTableComponent } from './views/tables/basic-table/basic-table.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboards/v1' },
@@ -27,21 +31,21 @@ const routes: Route[] = [
       { path: 'v1', component: Dashboard1Component },
     ]
   },
-  // { path: 'profiles', children:
-  //   [
-  //     { path: 'profile1', component: Profile1Component },
-  //   ]
-  // },
-  // { path: 'tables', children:
-  //   [
-  //     { path: 'table1', component: BasicTableComponent },
-  //   ]
-  // },
-  // { path: 'maps', children:
-  //   [
-  //     { path: 'map1', component: Map1Component},
-  //   ]
-  // },
+  { path: 'profiles', children:
+    [
+      { path: 'profile1', component: Profile1Component },
+    ]
+  },
+  { path: 'tables', children:
+    [
+      { path: 'table1', component: BasicTableComponent },
+    ]
+  },
+  { path: 'maps', children:
+    [
+      { path: 'map1', component: Map1Component},
+    ]
+  },
 
   { path: 'modals', component: ModalsComponent},
   { path: '**', component: NotFoundComponent },
@@ -53,6 +57,7 @@ const routes: Route[] = [
     AppComponent
   ],
   imports: [
+    CommonModule,
     AgmCoreModule.forRoot({
       apiKey: ''
     }),
@@ -61,6 +66,7 @@ const routes: Route[] = [
     NavigationModule,
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     ViewsModule,
     ErrorModule,

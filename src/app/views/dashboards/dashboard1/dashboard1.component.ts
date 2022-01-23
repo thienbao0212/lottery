@@ -8,7 +8,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class Dashboard1Component implements OnInit {
 
-  public arrNum: any[] =[
+  public arrNum: any[] = [
     {
       "num": "00",
       "isDisplay": false
@@ -458,25 +458,34 @@ export class Dashboard1Component implements OnInit {
   //     }]
   //   }
   // };
-
+  itemFilter = [1, 2, 3, 4, 5, 6, 7, 8, 9,10];
+  isSort = false;
+  public subdate = 5;
   constructor(private dashboardService: DashboardService) {
-  
+
   }
 
   ngOnInit() {
-    var current = (new Date()).setHours(0,0,0,0);
-    var from = new Date((new Date()).setHours(0,0,0,0) - 5*86400000)
+    this.initSearch();
+  }
+  initSearch() {
+    var current = (new Date()).setHours(0, 0, 0, 0);
+    var from = new Date((new Date()).setHours(0, 0, 0, 0) - (this.subdate + 1) * 86400000)
     this.getData(from.getTime(), current);
   }
   getData(from: any, to: any) {
     this.dashboardService.getData().subscribe(data => {
-      let arr = data.filter((item: string | any) => item.date > from && item.date <= to );
+      let arr = data.filter((item: string | any) => item.date > from && item.date <= to);
       arr.map((item: string | any) => {
         item.result = JSON.parse(item.result)
       });
       this.processData(arr);
-      
+
     })
+  }
+  selectedFilter(item: number) {
+    this.subdate = item;
+    this.initSearch();
   }
   processData(data: any) {
     let dataResult: any[] = [];
@@ -485,13 +494,26 @@ export class Dashboard1Component implements OnInit {
     });
 
     for (let index = 0; index < this.arrNum.length; index++) {
-          let result = dataResult.filter(item => item == this.arrNum[index].num);
-          this.arrNum[index].isDisplay = result && result.length > 0 ? true : false;
-          this.arrNum[index].count = result && result.length > 0 ? result.length : 0;
-        }
-
+      let result = dataResult.filter(item => item == this.arrNum[index].num);
+      this.arrNum[index].isDisplay = result && result.length > 0 ? true : false;
+      this.arrNum[index].count = result && result.length > 0 ? result.length : 0;
+    }
+    this.sortData(this.isSort)
     console.log(this.arrNum);
-  
+
+  }
+  sortData(isSort: boolean) {
+    this.isSort = isSort;
+    if (this.isSort) {
+      this.arrNum.sort(function (a, b) {
+        return a.count - b.count;
+      });
+    } else {
+      this.arrNum.sort(function (a, b) {
+        return a.num - b.num;
+      });
+    }
+
   }
 
 }

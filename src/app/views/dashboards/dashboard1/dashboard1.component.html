@@ -1,4 +1,38 @@
 <mdb-card class="mb-4">
+    <mdb-card-header>
+        <div class="item-filter row">
+            <ng-container *ngFor="let item of itemFilter; let i = index;">
+                <div class="item col" (click)="selectedFilter(item)"
+                    [class.selected]="item == subdate">
+                    {{item}}
+                </div>
+            </ng-container>
+            <div class="">
+                <form class="d-flex md-form my-0">
+                    <!-- Default input -->
+                    <input type="number" placeholder="Type your query" aria-label="Search" class="form-control" mdbInput
+                        style="width: 52px" [(ngModel)]="subdate" [ngModelOptions]="{standalone: true}">
+                    <!-- <button mdbBtn color="primary" size="sm" class="my-0 p" type="submit">
+                        <mdb-icon fas icon="search" size="1x"></mdb-icon>
+                    </button> -->
+                    <button type="button" size="sm" (click)="initSearch()" mdbwaveseffect=""
+                        class="btn-outline-primary btn-rounded btn-sm btn">
+                        <mdb-icon fas icon="search" size="1x"></mdb-icon>
+                        <!-- Search -->
+                    </button>
+                    <button type="button" size="sm" (click)="sortData(!isSort)" mdbwaveseffect=""
+                        [class.selected]="isSort"
+                        [class.un-selected]="!isSort"
+                        class="btn-outline-primary btn-rounded btn-sm btn ml-1">
+                        Sort
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+    </mdb-card-header>
+
 
     <!--Card content-->
     <mdb-card-body>
@@ -13,9 +47,11 @@
                     padding-left: 14px;
                     border-radius: 17px;
                     margin-right: 9px;">{{item.num}}</span>
-                    <mdb-badge [success]="item.count >= 3" [danger]="item.count < 3" pill="true" class="pull-right">
+                    <mdb-badge [success]="item.count >= subdate/2" [danger]="item.count < subdate/2" pill="true"
+                        class="pull-right">
                         <span style="">{{item.count}}</span>
-                        <mdb-icon fas [icon]="item.count >= 3 ? 'arrow-up' : 'arrow-down'" class="ml-1"></mdb-icon>
+                        <mdb-icon fas [icon]="item.count >= subdate/2 ? 'arrow-up' : 'arrow-down'" class="ml-1">
+                        </mdb-icon>
                     </mdb-badge>
                 </a>
             </ng-container>
